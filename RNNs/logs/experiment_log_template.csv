@@ -1,0 +1,1 @@
+experiment,model,bidirectional,emb_dim,hidden_size,num_layers,dropout,optimizer,lr,batch_size,accuracy,loss,notes

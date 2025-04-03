@@ -1,0 +1,24 @@
+model:
+  type: "LSTM"              # Options: LSTM, GRU, BiLSTM
+  bidirectional: false
+  embedding_dim: 100
+  hidden_size: 128
+  num_layers: 1
+  dropout: 0.3
+
+training:
+  batch_size: 32
+  num_epochs: 10
+  learning_rate: 0.001
+  optimizer: "adam"         # Options: adam, sgd
+  max_seq_len: 200
+  freeze_embeddings: true
+
+data:
+  train_path: "data/train.csv"
+  dev_path: "data/dev.csv"
+  embedding_path: "embeddings/glove.6B.100d.txt"
+
+logging:
+  output_dir: "logs/"
+  experiment_name: "exp_lstm_baseline"
