@@ -2,7 +2,7 @@
 
 ## Folder structure
 ```bash
-project/
+RNNs/
 ├── data/
 │   └── arxiv10.csv.gz           # The dataset
 ├── notebooks/
