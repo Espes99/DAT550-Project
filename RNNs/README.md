@@ -6,6 +6,7 @@ project/
 ├── data/
 │   └── arxiv10.csv.gz           # The dataset
 ├── notebooks/
+│   ├── data_inspection.ipynb    # Quick way to inspect the dataset
 │   └── rnn_experiments.ipynb    # Quick prototyping
 ├── models/
 │   └── rnn_model.py             # RNN model architecture
