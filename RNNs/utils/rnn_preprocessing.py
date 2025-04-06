@@ -76,7 +76,7 @@ class RNN_Preprocesser:
             self.label_encoder = pickle.load(f)
         self.df = pd.read_pickle(f"{path_prefix}_df.pkl")
 
-    # Getters
+    # Getters / Setters
     def get_dataset(self):
         return list(zip(self.df["padded"], self.df["label_idx"]))
     
@@ -85,6 +85,9 @@ class RNN_Preprocesser:
     
     def get_label_encoder(self):
         return self.label_encoder
+    
+    def set_dataframe(self, df: pd.DataFrame):
+        self.df = df
     
 class ArxivDataset(Dataset):
     def __init__(self, data):

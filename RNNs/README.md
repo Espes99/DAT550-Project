@@ -17,4 +17,11 @@ RNNs/
 ├── config.yaml                  # Parameters like batch size, learning rate
 └── README.md
 ```
+
+## Testing data pipeline
+Stand in the RNNs folder and run:
+```bash
+python -m pytest -v test/test_pipeline.py
+```
+
 TODO: TBC
