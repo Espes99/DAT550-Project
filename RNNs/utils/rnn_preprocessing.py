@@ -1,10 +1,12 @@
 import re
 import torch
 import pandas as pd
+import pickle
 from torchtext.vocab import build_vocab_from_iterator
 from torchtext.data.utils import get_tokenizer
 from torch.nn.utils.rnn import pad_sequence
 from sklearn.preprocessing import LabelEncoder
+from torch.utils.data import Dataset
 
 class RNN_Preprocesser:
     def __init__(self, dataFrame: pd.DataFrame, config: dict = None):
@@ -51,6 +53,20 @@ class RNN_Preprocesser:
         seq = seq[:self.MAX_LEN]
         return torch.tensor(seq + [self.vocab["<pad>"]] * (self.MAX_LEN - len(seq)))
     
+    # Save / Load
+
+    def save(self, path_prefix: str):
+        torch.save(self.vocab, f"{path_prefix}_vocab.pt")
+        with open(f"{path_prefix}_label_encoder.pkl", "wb") as f:
+            pickle.dump(self.label_encoder, f)
+        self.df.to_pickle(f"{path_prefix}_df.pkl")
+
+    def load(self, path_prefix: str):
+        self.vocab = torch.load(f"{path_prefix}_vocab.pt")
+        with open(f"{path_prefix}_label_encoder.pkl", "rb") as f:
+            self.label_encoder = pickle.load(f)
+        self.df = pd.read_pickle(f"{path_prefix}_df.pkl")
+
     # Getters
     def get_dataset(self):
         return list(zip(self.df["padded"], self.df["label_idx"]))
@@ -61,3 +77,12 @@ class RNN_Preprocesser:
     def get_label_encoder(self):
         return self.label_encoder
     
+class ArxivDataset(Dataset):
+    def __init__(self, data):
+        self.data = data
+
+    def __len__(self):
+        return len(self.data)
+    
+    def __getitem__(self, idx):
+        return self.data[idx]
