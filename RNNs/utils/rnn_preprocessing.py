@@ -9,13 +9,16 @@ from sklearn.preprocessing import LabelEncoder
 from torch.utils.data import Dataset
 
 class RNN_Preprocesser:
-    def __init__(self, dataFrame: pd.DataFrame, config: dict = None):
+    """
+    Preprocesses text data for RNN-based classification.
+    """
+    def __init__(self, dataFrame: pd.DataFrame = None, config: dict = None):
         config = config or {}
         # Hyper-parameters:
         self.MAX_LEN = config.get("max_len", 350) # Max length of an input, required for RNN processing
 
         # -----
-        self.df = dataFrame
+        self.df = dataFrame if dataFrame is not None else pd.DataFrame()
         self.tokenizer = get_tokenizer("basic_english")
         self.label_encoder = LabelEncoder()
 
@@ -52,6 +55,12 @@ class RNN_Preprocesser:
     def pad_sequence_fixed_length(self, seq):
         seq = seq[:self.MAX_LEN]
         return torch.tensor(seq + [self.vocab["<pad>"]] * (self.MAX_LEN - len(seq)))
+    
+    def decode_tensor(self, tensor):
+        """Decodes a tensor of token indices back into words (excluding <pad>)."""
+        inverse_vocab = {idx: word for word, idx in self.vocab.get_stoi().items()}
+        return ' '.join(inverse_vocab.get(idx.item(), "<unk>") for idx in tensor if idx.item() != self.vocab["<pad>"])
+
     
     # Save / Load
 
