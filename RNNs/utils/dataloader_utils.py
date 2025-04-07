@@ -13,3 +13,12 @@ def get_dataloaders_from_splits(train_df, val_df, batch_size=32, pad_col="padded
     val_loader = DataLoader(val_ds, batch_size=batch_size)
 
     return train_loader, val_loader
+
+def get_individual_dataloader(dataframe, batch_size=32, pad_col="padded", label_col="label_idx", shuffle=True):
+    dataframe_data = list(zip(dataframe[pad_col], dataframe[label_col]))
+
+    dataframe_ds = ArxivDataset(dataframe_data)
+
+    dataframe_loader = DataLoader(dataframe_ds, batch_size=batch_size, shuffle=shuffle)
+
+    return dataframe_loader
