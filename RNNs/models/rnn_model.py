@@ -61,6 +61,9 @@ class RNNClassifier(nn.Module):
         else:
             final_hidden = hidden[-1]
             return self.fc(final_hidden)
+        
+    def __repr__(self):
+        return f"RNNClassifier(rnn_type={self.rnn.__class__.__name__}, bidirectional={self.lstm_bi}, attention={self.attn_layer.__class__.__name__ if self.use_attention else 'None'})"
 
 class CustomAttentionLayer(nn.Module):
     def __init__(self, hidden_dim):
