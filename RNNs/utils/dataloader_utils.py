@@ -22,3 +22,7 @@ def get_individual_dataloader(dataframe, batch_size=32, pad_col="padded", label_
     dataframe_loader = DataLoader(dataframe_ds, batch_size=batch_size, shuffle=shuffle)
 
     return dataframe_loader
+
+def temp_split_func(dataframe):
+    
+    pass

@@ -8,7 +8,7 @@ from torch.nn.utils.rnn import pad_sequence
 from sklearn.preprocessing import LabelEncoder
 from torch.utils.data import Dataset
 
-class RNN_Preprocesser:
+class RNN_Preprocessor:
     """
     Preprocesses text data for RNN-based classification.
     """
