@@ -3,25 +3,32 @@
 ## Folder structure
 ```bash
 RNNs/
-├── logs/
-│   └── *.csv                    # Logs in a csv format
+├── configs/
+│   ├── rnn_standard_config.yaml     # Standard config file for training
+│   └── rnn_test_flight.yaml         # Test config for experimental runs
+├── logs/                            # Logs from all runs
 ├── models/
-│   └── rnn_model.py             # RNN model architecture
+│   ├── __init__.py                  # Model package initializer
+│   └── rnn_model.py                 # RNN model architecture
 ├── notebooks/
-│   ├── data_inspection.ipynb    # Quick way to inspect the dataset
-│   └── rnn_experiments.ipynb    # Quick prototyping
+│   ├── data_inspection.ipynb        # Quick way to inspect the dataset
+│   ├── Report_notes.ipynb           # Notes for the final report
+│   └── rnn_prototyping.ipynb        # Prototyping and experimentation
+├── outputs/                         # Folder for best models
 ├── test/
-│   ├── __init__.py              # Initializing the folder as a package
-│   └── test_pipeline.py         # Test for utils package
+│   ├── __init__.py                  # Initialize test module
+│   └── test_pipeline.py             # Unit tests for the pipeline
 ├── utils/
-│   ├── __init__.py              # Initializing the folder as a package
-│   ├── dataloader_utils.py      # Helper function for loading the datasets
-│   ├── embedding_loader.py      # Class for the embedding layer
-│   └── rnn_preprocessing.py     # RNN specific preprocessing tokenization, padding, etc.
-├── train_rnn.py                 # Training loop
-├── evaluate_rnn.py              # Evaluation script
-├── config.yaml                  # Parameters like batch size, learning rate
-└── README.md
+│   ├── __init__.py                  # Init for utils module
+│   ├── dataloader_utils.py          # Dataset and DataLoader handling
+│   ├── embedding_loader.py          # Embedding layer integration
+│   └── rnn_preprocessing.py         # Tokenization, padding, etc.
+├── __init__.py                      # Init for utils module
+├── config.yaml                      # Global config file (possibly duplicate of configs/)
+├── evaluate_rnn.py                  # Evaluation script
+├── README.md                        # Project overview and instructions
+├── run_training.py                  # Entry point for training the rnn
+└── train_rnn.py                     # Training loop
 ```
 
 ## Execution
