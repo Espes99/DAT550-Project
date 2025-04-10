@@ -17,7 +17,7 @@ class RNNClassifier(nn.Module):
         if rnn_type.lower() == "lstm":
             self.rnn = nn.LSTM(self.emb_dim, hidden_dim, num_layers=num_layers, batch_first=batch_first, dropout=dropout if num_layers > 1 else 0, bidirectional=bidirectional)
         elif rnn_type.lower() == "gru":
-            self.rnn = nn.GRU(self.emb_dim, hidden_dim, num_layers=num_layers, batch_first=batch_first, dropout=dropout if num_layers > 1 else 0)
+            self.rnn = nn.GRU(self.emb_dim, hidden_dim, num_layers=num_layers, batch_first=batch_first, dropout=dropout if num_layers > 1 else 0, bidirectional=bidirectional)
         else:
             raise ValueError("rnn_type must be either 'lstm' or 'gru'")
         
@@ -44,10 +44,14 @@ class RNNClassifier(nn.Module):
         # For LSTM, hidden is a tuple (hidden_state, cell_state)
         if isinstance(hidden, tuple):
             hidden = hidden[0]
+
+        if self.lstm_bi:
+            final_hidden = torch.cat((hidden[-2], hidden[-1]), dim=1)  # [batch_size, hidden_dim*2]
+        else:
+            final_hidden = hidden[-1]  # [batch_size, hidden_dim]
         
         if self.use_attention:
             if isinstance(self.attn_layer, CustomDotProductAttention):
-                final_hidden = hidden[-1]
                 if self.return_attn_weights:
                     context, attn_weights = self.attn_layer(output, final_hidden, return_weights=True)
                 else:
@@ -59,7 +63,6 @@ class RNNClassifier(nn.Module):
                     context = self.attn_layer(output)
             return self.fc(context) if not self.return_attn_weights else (self.fc(context), attn_weights)
         else:
-            final_hidden = hidden[-1]
             return self.fc(final_hidden)
         
     def __repr__(self):

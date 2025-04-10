@@ -1,5 +1,5 @@
 model:
-  type: "LSTM"              # Options: LSTM, GRU, BiLSTM
+  type: "LSTM"              # Options: LSTM, GRU
   bidirectional: false
   embedding_dim: 100
   hidden_size: 128
@@ -15,9 +15,8 @@ training:
   freeze_embeddings: true
 
 data:
-  train_path: "data/train.csv"
+  train_path: "../Data/arxiv_train.csv"
   dev_path: "data/dev.csv"
-  embedding_path: "embeddings/glove.6B.100d.txt"
 
 logging:
   output_dir: "logs/"

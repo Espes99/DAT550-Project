@@ -7,14 +7,14 @@ warnings.filterwarnings("ignore", category=UserWarning, module="torchtext")
 
 from torchtext.vocab import build_vocab_from_iterator
 from torchtext.data.utils import get_tokenizer
-from utils.rnn_preprocessing import RNN_Preprocesser
+from utils.rnn_preprocessing import RNN_Preprocessor
 from utils.dataloader_utils import get_dataloaders_from_splits
 from utils.embedding_loader import EmbeddingLoader
 
 def test_data_pipeline():
     df = pd.read_csv("../Data/arxiv_train.csv")
 
-    preprocessor = RNN_Preprocesser(df)
+    preprocessor = RNN_Preprocessor(df)
     preprocessor.preprocess()
 
     train_df, val_df = train_test_split(

@@ -1,4 +1,5 @@
 from torch.utils.data import DataLoader
+from sklearn.model_selection import train_test_split
 from utils.rnn_preprocessing import ArxivDataset
 
 def get_dataloaders_from_splits(train_df, val_df, batch_size=32, pad_col="padded", label_col="label_idx", shuffle=True):
@@ -23,6 +24,6 @@ def get_individual_dataloader(dataframe, batch_size=32, pad_col="padded", label_
 
     return dataframe_loader
 
-def temp_split_func(dataframe):
-    
-    pass
+def split_func(dataframe):
+    df1, df2 = train_test_split(dataframe, 0.8, 0.2, 42, stratify=dataframe["label"])
+    return df1, df2

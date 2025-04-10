@@ -2,6 +2,10 @@ import re
 import torch
 import pandas as pd
 import pickle
+
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="torchtext")
+
 from torchtext.vocab import build_vocab_from_iterator
 from torchtext.data.utils import get_tokenizer
 from torch.nn.utils.rnn import pad_sequence
