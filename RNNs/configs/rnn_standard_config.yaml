@@ -1,0 +1,35 @@
+preprocess:
+  max_len: 350
+
+embedding:
+  embedding_type: glove
+  embedding_dim: 100 # 50, 100, 200, 300
+  freeze: True
+
+model:
+  rnn_type: lstm
+  hidden_dim: 128
+  bidirectional: true
+  attention_layer: custom
+  return_attn_weights: true
+  num_layers: 2
+  dropout: 0.3
+
+training:
+  lr: 0.001
+  epochs: 10
+  early_stopping: true
+  early_stopping_patience: 3
+
+  scheduler:
+    name: "ReduceLROnPlateau"
+    mode: "max"
+    factor: 0.5
+    patience: 2
+    verbose: true
+
+batch_size: 64
+output_dir: outputs/run1
+log_dir: logs/run1
+use_tensorboard: false
+evaluate_on_test: false
