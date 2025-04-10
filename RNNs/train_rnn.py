@@ -9,7 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 from sklearn.metrics import f1_score, precision_score, recall_score, top_k_accuracy_score
 
 import utils.dataloader_utils as dl
-from utils.rnn_preprocessing import RNN_Preprocessor, ArxivDataset
+from utils.rnn_preprocessing import RNN_Preprocessor
 from utils.embedding_loader import EmbeddingLoader
 from models.rnn_model import RNNClassifier
 
