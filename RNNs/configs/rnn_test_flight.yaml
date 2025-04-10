@@ -8,7 +8,6 @@ training:
   lr: 0.01
   batch_size: 8
   early_stopping: false
-  evaluate_on_test: true
 
   scheduler:
     name: "ReduceLROnPlateau" # only option as of now

@@ -19,7 +19,7 @@ class RNNTrainer:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
         print(f"[Device] Using device: {self.device}")
 
-        self.writer = SummaryWriter(log_dir=config["log_dir"]) if config.get("use_tesorboard", False) else None
+        self.writer = SummaryWriter(log_dir=config["log_dir"]) if config.get("use_tensorboard", False) else None
         self.metrics = []
 
         self._prepare_data()
@@ -50,9 +50,7 @@ class RNNTrainer:
         raw_test_df = pd.read_csv("../Data/arxiv_test.csv") if self.config["test_flight"] else pd.read_csv("../Data/arxiv_test.csv").sample(n=100, random_state=42)
         test_preprocessor = RNN_Preprocessor(raw_test_df, self.config["preprocess"])
         test_preprocessor.preprocess()
-        
-        self.train_df = self.train_df
-        self.val_df = self.val_df
+
         self.test_df = test_preprocessor.df
 
         self.train_loader, self.val_loader = dl.get_dataloaders_from_splits(self.train_df, self.val_df, batch_size=self.config["batch_size"], shuffle=True)
