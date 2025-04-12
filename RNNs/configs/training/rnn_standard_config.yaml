@@ -1,0 +1,40 @@
+test_flight: false
+
+preprocess:
+  max_len: 350
+
+training:
+  epochs: 10
+  lr: 0.001
+  batch_size: 64
+  early_stopping: true
+  early_stopping_patience: 10
+
+  scheduler:
+    name: "ReduceLROnPlateau" # only option as of now
+    mode: "max"
+    factor: 0.5
+    patience: 2
+    verbose: true
+
+model:
+  rnn_type: lstm #lstm or gru
+  bidirectional: false
+  attention_layer: "none" # "none" as a string to disable, "custom", "custom_dot", "custom_mlp", "mha"
+  return_attn_weights: true
+  num_layers: 1
+  dropout: 0.3
+  hidden_dim: 128
+
+embedding:
+  embedding_type: glove # glove, fasttext or random
+  embedding_dim: 50 # 50, 100, 200, 300 / for fasttext embedding_dim will default to 300 since thats the only one
+  freeze: True
+
+batch_size: 64
+output_dir: outputs/lstmNoneGlove50
+log_dir: logs/lstmNoneGlove50
+use_tensorboard: false
+evaluate_on_test: false
+run_type: "training" # "testing" or "training"
+test_type: lstmNoneGlove50 # A name for the specific run, I use words that correlate to the structure of the run

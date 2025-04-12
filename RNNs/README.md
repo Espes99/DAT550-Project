@@ -33,4 +33,47 @@ Stand in the RNNs folder and run:
 python -m pytest -v test/test_pipeline.py
 ```
 
+## Training a model
+To train a model configure a training config and run the following command:
+```bash
+python run_training.py --config configs/training/*.yaml # This command can be ran as a standalone without flags, that will default to the config "rnn_test_flight.yaml"
+```
+
+The available flags are:
+```bash
+--config "Config directory"
+```
+
+## Evaluating a model
+To evaluate a model configure a config script, certain values must remain the same between training and evaluation, these configurations will be loaded automatically by the evaluation procedure. To run an evaluation execute the following command:
+```bash
+python evaluate_rnn.py --config configs/testing/eval_test.yaml
+```
+The available flags are:
+```bash
+--config "config directory"
+```
+## Analysis procedure
+### General analysis
+Run the following command with a list of model directories:
+```bash
+python analyze_metrics.py --runs outputs/training/testGruBiCustomGloveFSched outputs/training/testLstmNonbiCustomDotGloveFSched outputs/training/testLstmNonbiNoneGloveFSched --mode both
+```
+The available flags are:
+```bash
+--runs "list all model directories with a seperating space"
+--mode options are ["train", "test", "both"]
+```
+### Attention evolution analysis
+**Small note this code needs to be run with both training and evaluation metrics stored in the output folder**\
+**You can only analyze 4 models at a time**\
+Run the following command:
+```bash
+python plot_animated_attention.py --trace_dir outputs/training/testGruBiCustomGloveFSched/attention_trace --out attention_evolution.gif
+```
+The available flags are:
+```bash
+--trace_dir "Directory containing the models attention trace"
+--out "Output file remember to use format '.gif'"
+```
 TODO: TBC

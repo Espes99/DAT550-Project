@@ -8,8 +8,7 @@ def load_config(path):
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, help="Path to YAML config", default="configs/rnn_test_flight.yaml")
-    parser.add_argument("--override", type=str, help="Path to YAML config to override certain default config values")
+    parser.add_argument("--config", type=str, help="Path to YAML config", default="configs/training/rnn_test_flight.yaml")
     args = parser.parse_args()
 
     config = load_config(args.config)

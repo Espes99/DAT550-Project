@@ -16,28 +16,37 @@ class RNN_Preprocessor:
     """
     Preprocesses text data for RNN-based classification.
     """
-    def __init__(self, dataFrame: pd.DataFrame = None, config: dict = None):
+    def __init__(self, dataFrame: pd.DataFrame = None, config: dict = None, vocab=None, label_encoder=None):
         config = config or {}
         # Hyper-parameters:
         self.MAX_LEN = config.get("max_len", 350) # Max length of an input, required for RNN processing
 
         # -----
+        self.pre_def_vocab = vocab
         self.df = dataFrame if dataFrame is not None else pd.DataFrame()
         self.tokenizer = get_tokenizer("basic_english")
-        self.label_encoder = LabelEncoder()
+        self.label_encoder = label_encoder
+        if self.label_encoder is None:
+            self.label_encoder = LabelEncoder()
+            self.label_encoder.fit(self.df["label"])
+
+        self.df["label_idx"] = self.label_encoder.transform(self.df["label"])
 
 
     def preprocess(self):
         self.df["clean_text"] = self.df["abstract"].apply(lambda x: self.clean_text(x))
 
-        self.vocab = build_vocab_from_iterator(self.yield_tokens(self.df["clean_text"]), specials=["<unk>", "<pad>"])
+        if self.pre_def_vocab:
+            self.vocab = self.pre_def_vocab
+        else:
+            self.vocab = build_vocab_from_iterator(self.yield_tokens(self.df["clean_text"]), specials=["<unk>", "<pad>"])
         self.vocab.set_default_index(self.vocab["<unk>"])
 
         self.df["encoded"] = self.df["clean_text"].apply(self.encode_text)
 
         self.df["padded"] = self.df["encoded"].apply(lambda x: self.pad_sequence_fixed_length(x))
         
-        self.df["label_idx"] = self.label_encoder.fit_transform(self.df["label"])
+        #self.df["label_idx"] = self.label_encoder.fit_transform(self.df["label"])
 
     def clean_text(self, text):
         text = text.lower()

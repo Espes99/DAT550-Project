@@ -50,6 +50,8 @@ class RNNClassifier(nn.Module):
         else:
             final_hidden = hidden[-1]  # [batch_size, hidden_dim]
         
+        self.final_hidden_state = final_hidden.detach()  # [batch_size, hidden_dim]
+        
         if self.use_attention:
             if isinstance(self.attn_layer, CustomDotProductAttention):
                 if self.return_attn_weights:

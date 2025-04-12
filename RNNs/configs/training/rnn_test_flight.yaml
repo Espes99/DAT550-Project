@@ -4,7 +4,7 @@ preprocess:
   max_len: 350
 
 training:
-  epochs: 5
+  epochs: 10
   lr: 0.01
   batch_size: 8
   early_stopping: false
@@ -18,8 +18,8 @@ training:
 
 model:
   rnn_type: "lstm" #lstm or gru
-  bidirectional: true
-  attention_layer: "custom" # "none" as a string to disable
+  bidirectional: false
+  attention_layer: "none" # "none" as a string to disable, "custom", "custom_dot", "custom_mlp", "mha"
   return_attn_weights: true
   num_layers: 1
   dropout: 0.1
@@ -27,11 +27,14 @@ model:
 
 embedding:
   embedding_dim: 50 # 50, 100, 200, 300 / for fasttext embedding_dim will default to 300 since thats the only one
-  embedding_type: "random"
+  embedding_type: "glove" # glove, fasttext or random
   freeze: True
 
 batch_size: 64
-output_dir: outputs/test/lstmBiCustomGlove
-log_dir: logs/test/lstmBiCustomGlove
+output_dir: outputs/training
+log_dir: logs/training
 use_tensorboard: false
 evaluate_on_test: false
+run_type: "training" # "testing" or "training"
+test_type: testLstmNonbiNoneGloveFSched # A name for the specific run, I use words that correlate to the structure of the run
+ # testGruBiCustomGloveFSched testLstmNonbiCustomDotGloveFSched testLstmNonbiNoneGloveFSched

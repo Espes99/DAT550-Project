@@ -1,6 +1,8 @@
 import os
 import json
 import time
+import pickle
+import yaml
 
 import pandas as pd
 import torch
@@ -11,6 +13,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score, top_k_accur
 import utils.dataloader_utils as dl
 from utils.rnn_preprocessing import RNN_Preprocessor
 from utils.embedding_loader import EmbeddingLoader
+from utils.directory_utils import prepare_unique_output_path
 from models.rnn_model import RNNClassifier
 
 class RNNTrainer:
@@ -19,8 +22,16 @@ class RNNTrainer:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
         print(f"[Device] Using device: {self.device}")
 
-        self.writer = SummaryWriter(log_dir=config["log_dir"]) if config.get("use_tensorboard", False) else None
+        self.writer = SummaryWriter(os.path.join(config["log_dir"], config["test_type"])) if config.get("use_tensorboard", False) else None
         self.metrics = []
+
+        self.config["output_dir"] = prepare_unique_output_path(os.path.join(config["output_dir"], config["test_type"]))
+        self.config["log_dir"] = prepare_unique_output_path(os.path.join(config["log_dir"], config["test_type"]))
+
+        self.save_training_constants(config["output_dir"])
+        self.attn_save_dir = os.path.join(self.config["output_dir"], "attention_trace")
+        os.makedirs(self.attn_save_dir, exist_ok=True)
+
 
         self._prepare_data()
         self._init_model()
@@ -58,6 +69,12 @@ class RNNTrainer:
         self.embedding = EmbeddingLoader(train_preprocessor.get_vocab(), self.config["embedding"]).load()
         self.label_encoder = train_preprocessor.get_label_encoder()
 
+        with open(os.path.join(self.config["output_dir"], "vocab.pkl"), "wb") as f:
+            pickle.dump(train_preprocessor.get_vocab(), f)
+
+        with open(os.path.join(self.config["output_dir"], "label_encoder.pkl"), "wb") as f:
+            pickle.dump(train_preprocessor.get_label_encoder(), f)
+
     def _init_model(self):
         cfg = self.config["model"]
         self.model = RNNClassifier(
@@ -91,6 +108,7 @@ class RNNTrainer:
 
 
     def train(self):
+        start_time = time.time()
         print("[RNNTrainer]: Starting train...")
         best_val_acc = 0
         early_stop_counter = 0
@@ -99,9 +117,40 @@ class RNNTrainer:
 
         for epoch in range(self.config["training"]["epochs"]):
             print(f"[RNNTrainer]: Starting train on epoch {epoch}")
-            start_time = time.time()
+            # Select fixed example only once for tracking
+            if epoch == 0:
+                x_fixed, y_fixed = next(iter(self.val_loader))
+                self.example_tokens = [self.vocab.get_itos()[i.item()] for i in x_fixed[0]]
+                self.fixed_input = x_fixed[0].unsqueeze(0).to(self.device)
+
+            epoch_start_time = time.time()
 
             train_acc, avg_train_loss, grad_norm, train_attn_entropy, train_max_attn = self._train_epoch()
+
+            # Constants to limit token/attention length
+            MAX_ATTENTION_TOKENS = 40
+
+            if self.config["model"].get("return_attn_weights", False):
+                self.model.eval()
+                with torch.no_grad():
+                    output = self.model(self.fixed_input)
+                    if isinstance(output, tuple):
+                        _, attn_weights = output
+                        attn_weights = attn_weights[0].cpu().tolist()
+                        
+                        # Filter to max tokens
+                        truncated_tokens = self.example_tokens[:MAX_ATTENTION_TOKENS]
+                        truncated_weights = attn_weights[:MAX_ATTENTION_TOKENS]
+
+                        attn_log = {
+                            "epoch": epoch,
+                            "tokens": truncated_tokens,
+                            "attention_weights": truncated_weights
+                        }
+
+                        with open(os.path.join(self.attn_save_dir, f"epoch_{epoch}.json"), "w") as f:
+                            json.dump(attn_log, f, indent=2)
+
             val_acc, val_loss, f1, precision, recall, top3, val_attn_entropy, val_max_attn = self._evaluate_epoch(self.val_loader)
 
 
@@ -111,8 +160,17 @@ class RNNTrainer:
                 self.writer.add_scalar("Loss/Val", val_loss, epoch)
                 self.writer.add_scalar("Accuracy/Train", train_acc, epoch)
                 self.writer.add_scalar("Accuracy/Val", val_acc, epoch)
+                self.writer.add_scalar("Grad norm", grad_norm, epoch)
+                self.writer.add_scalar("Train attention entropy", train_attn_entropy, epoch)
+                self.writer.add_scalar("Train attention max", train_max_attn, epoch)
+                self.writer.add_scalar("Validation attention entropy", val_attn_entropy, epoch)
+                self.writer.add_scalar("Validation attention max", val_max_attn, epoch)
+                self.writer.add_scalar("Validation F1", f1, epoch)
+                self.writer.add_scalar("Validation Precision", precision, epoch)
+                self.writer.add_scalar("Validation Recall", recall, epoch)
+                self.writer.add_scalar("Validation top 3 accuracy", top3, epoch)
 
-            epoch_time = time.time() - start_time
+            epoch_time = time.time() - epoch_start_time
             print(f"Epoch {epoch+1:02d}: Train Loss={avg_train_loss:.4f}, Val Loss={val_loss:.4f}, Train Acc={train_acc:.4f}, Val Acc={val_acc:.4f} | Time: {epoch_time:.2f}s")
 
             if self.scheduler:
@@ -139,6 +197,8 @@ class RNNTrainer:
                 "val_precision": precision,
                 "val_recall": recall,
                 "val_top3_acc": top3,
+                "test_type": self.config["test_type"],
+                "run_type": self.config["run_type"]
             })
 
             if val_acc > best_val_acc:
@@ -154,11 +214,16 @@ class RNNTrainer:
         if self.writer:
             self.writer.close()
 
-        with open(os.path.join(self.config["log_dir"], "metrics.json"), "w") as f:
+        with open(os.path.join(self.config["output_dir"], "metrics.json"), "w") as f:
             json.dump(self.metrics, f, indent=2)
 
         metrics_df = pd.DataFrame(self.metrics)
-        metrics_df.to_csv(os.path.join(self.config["log_dir"], "metrics.csv"), index=False)
+        metrics_df.to_csv(os.path.join(self.config["output_dir"], "metrics.csv"), index=False)
+
+        with open(os.path.join(self.config["output_dir"], "model_configurations.yaml"), "w") as f:
+            yaml.dump(self.config)
+
+        print(f"[Main] Test for {self.config['test_type']} elapsed for: {time.time() - start_time}s or {(time.time() - start_time) / 60} min")
 
 
         if self.config.get("evaluate_on_test", False):
@@ -242,3 +307,17 @@ class RNNTrainer:
         acc = correct / total
         avg_loss = total_loss / total
         return acc, avg_loss, f1, precision, recall, top3, attn_entropy, max_attn
+    
+    def save_training_constants(self, output_dir, filename="constants_for_eval.yaml"):
+        # These are the config sections that must match during evaluation
+        keys_to_keep = ["model", "embedding", "preprocess", "test_type", "run_type"]
+
+        # Build dictionary with only relevant keys
+        filtered_config = {k: v for k, v in self.config.items() if k in keys_to_keep}
+
+        # Save as YAML next to best_model.pt
+        full_path = os.path.join(output_dir, filename)
+        with open(full_path, "w") as f:
+            yaml.dump(filtered_config, f, default_flow_style=False)
+        
+        full_path
