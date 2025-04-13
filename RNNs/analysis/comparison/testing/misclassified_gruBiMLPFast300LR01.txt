@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for gruBiMLPFast300LR01
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9999415874481201
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9999375343322754
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "quant-ph",
+  "confidence": 0.9999052286148071
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9999037981033325
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9998290538787842
+}
+

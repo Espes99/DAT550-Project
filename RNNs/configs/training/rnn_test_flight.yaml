@@ -19,7 +19,7 @@ training:
 model:
   rnn_type: "lstm" #lstm or gru
   bidirectional: false
-  attention_layer: "none" # "none" as a string to disable, "custom", "custom_dot", "custom_mlp", "mha"
+  attention_layer: "custom_dot" # "none" as a string to disable, "custom", "custom_dot", "custom_mlp", "mha"
   return_attn_weights: true
   num_layers: 1
   dropout: 0.1
@@ -36,5 +36,5 @@ log_dir: logs/training
 use_tensorboard: false
 evaluate_on_test: false
 run_type: "training" # "testing" or "training"
-test_type: testLstmNonbiNoneGloveFSched # A name for the specific run, I use words that correlate to the structure of the run
+test_type: testLstmNonbiCustomDotGloveFSched # A name for the specific run, I use words that correlate to the structure of the run
  # testGruBiCustomGloveFSched testLstmNonbiCustomDotGloveFSched testLstmNonbiNoneGloveFSched

@@ -14,6 +14,7 @@ from utils.dataloader_utils import get_individual_dataloader
 from utils.embedding_loader import EmbeddingLoader
 from utils.directory_utils import prepare_unique_output_path
 from models.rnn_model import RNNClassifier
+torch.backends.cudnn.benchmark = True
 
 def load_config(path):
     with open(path, "r") as f:
@@ -41,14 +42,14 @@ def evaluate(model, dataloader, criterion, device, label_encoder, test_type, voc
                 attn_entropies.append(-(attn_weights * attn_weights.log()).sum(dim=1).mean().item())
                 attn_max_weights.append(attn_weights.max().item())
 
-                if return_analysis:
+                #if return_analysis:
                     # Convert token IDs back to tokens (need vocab reverse map)
-                    tokens = [[vocab.vocab.get_itos()[token_id.item()] for token_id in seq] for seq in x_batch]
-                    for i in range(len(tokens)):
-                        attention_examples.append({
-                            "tokens": tokens[i],
-                            "attention_weights": attn_weights[i].cpu().tolist()
-                        })
+                    #tokens = [[vocab.vocab.get_itos()[token_id.item()] for token_id in seq] for seq in x_batch]
+                    #for i in range(len(tokens)):
+                    #    attention_examples.append({
+                    #        "tokens": tokens[i],
+                    #        "attention_weights": attn_weights[i].cpu().tolist()
+                    #    })
             
             preds = torch.argmax(output, dim=1)
 
@@ -132,9 +133,9 @@ def evaluate(model, dataloader, criterion, device, label_encoder, test_type, voc
         }
     return total_loss / total, metrics, None
 
-def main(config_path):
+def main(config):
     start_time = time.time()
-    config = load_config(config_path)
+    #config = load_config(config_path)
     setVariables = load_config(os.path.join(config["model_dir"], "constants_for_eval.yaml"))
 
     for k, v in setVariables.items():
@@ -178,6 +179,7 @@ def main(config_path):
     model.load_state_dict(torch.load(f"{config['model_dir']}/best_model.pt"))
     criterion = torch.nn.CrossEntropyLoss()
 
+    print(f"[Evaluation]: Starting evaluation")
     test_loss, test_metrics, extras = evaluate(model, test_loader, criterion, device, label_encoder, config["test_type"], vocab)
     print(f"\n[Test Evaluation]")
     print(f"Loss: {test_loss:.4f}")
@@ -218,10 +220,30 @@ def main(config_path):
         json.dump(extras["attention_examples"], f, indent=2)
     
     print(f"\n[Test metrics saved to: {out_dir}]")
-    print(f"[Main] Test for {config['test_type']} elapsed for: {time.time() - start_time}s or {(time.time() - start_time) / 60} min")
+    elapsed = time.time() - start_time
+    print(f"[Main] Test for {config['test_type']} elapsed for: {elapsed:.2f}s or {elapsed / 60:.2f} min")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, required=True, help="Path to YAML config file")
+    parser.add_argument("--config", type=str, help="Path to YAML config file")
+    parser.add_argument("--config_dir", type=str, help="Directory path for all config files to be run, this overrides --config", default=None)
     args = parser.parse_args()
-    main(args.config)
+    
+    config_dir = args.config_dir
+
+    if args.config_dir:
+        config_dir = args.config_dir
+        config_files = sorted([
+            os.path.join(config_dir, f)
+            for f in os.listdir(config_dir)
+            if f.endswith(".yaml")
+        ])
+        print(f"Total configs registered: {len(config_files)}")
+        for c in config_files:
+            print(f"Starting config: {c}")
+            loaded_c = load_config(c)
+            main(loaded_c)
+    elif args.config:
+        print(f"Starting single config: {args.config}")
+        config = load_config(args.config)
+        main(config)

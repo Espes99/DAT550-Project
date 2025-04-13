@@ -22,7 +22,7 @@ embedding:
   embedding_type: "glove"
   freeze: true
 
-model_dir: outputs/training/testLstmNonbiNoneGloveFSched
-log_dir: outputs/training/testLstmNonbiNoneGloveFSched
+model_dir: outputs/training/lstmBiCustomGlove50Drop1/lstmBiCustomGlove50Drop1
+log_dir: outputs/training/lstmBiCustomGlove50Drop1/lstmBiCustomGlove50Drop1
 
-dir_extention: testLstmNonbiNoneGloveFSched # testGruBiCustomGloveFSched testLstmNonbiCustomDotGloveFSched testLstmNonbiNoneGloveFSched
+dir_extention: lstmBiCustomGlove50Drop1 # testGruBiCustomGloveFSched testLstmNonbiCustomDotGloveFSched testLstmNonbiNoneGloveFSched

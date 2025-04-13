@@ -15,6 +15,7 @@ from utils.rnn_preprocessing import RNN_Preprocessor
 from utils.embedding_loader import EmbeddingLoader
 from utils.directory_utils import prepare_unique_output_path
 from models.rnn_model import RNNClassifier
+torch.backends.cudnn.benchmark = True
 
 class RNNTrainer:
     def __init__(self, config):
@@ -223,7 +224,8 @@ class RNNTrainer:
         with open(os.path.join(self.config["output_dir"], "model_configurations.yaml"), "w") as f:
             yaml.dump(self.config)
 
-        print(f"[Main] Test for {self.config['test_type']} elapsed for: {time.time() - start_time}s or {(time.time() - start_time) / 60} min")
+        elapsed = time.time() - start_time
+        print(f"[Main] Test for {self.config['test_type']} elapsed for: {elapsed:.2f}s or {elapsed / 60:.2f} min")
 
 
         if self.config.get("evaluate_on_test", False):

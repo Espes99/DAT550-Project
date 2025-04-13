@@ -64,6 +64,17 @@ The available flags are:
 --runs "list all model directories with a seperating space"
 --mode options are ["train", "test", "both"]
 ```
+Commands used in this project:
+```bash
+python analyze_metrics.py --runs outputs/training/gruBiMLPFast300/gruBiMLPFast300 outputs/training/gruBiMLPFast300LR01/gruBiMLPFast300LR01 outputs/training/gruNoneGlove50/gruNoneGlove50 outputs/training/gruNoneRand50/gruNoneRand50 --mode both
+
+python analyze_metrics.py --runs outputs/training/lstmBiCustomGlove50_2L/lstmBiCustomGlove50_2L outputs/training/lstmBiCustomGlove50Drop1/lstmBiCustomGlove50Drop1 --mode both
+
+python analyze_metrics.py --runs outputs/training/lstmBiDotGlove100Train/lstmBiDotGlove100Train outputs/training/lstmBiMHAFast300_2L/lstmBiMHAFast300_2L outputs/training/lstmBiNoneGlove50/lstmBiNoneGlove50 outputs/training/lstmNoneGlove50/lstmNoneGlove50 --mode both
+
+python analyze_metrics.py --runs outputs/training/lstmNoneGlove50Drop1/lstmNoneGlove50Drop1 outputs/training/lstmNoneGlove50LR01/lstmNoneGlove50LR01 --mode both
+```
+
 ### Attention evolution analysis
 **Small note this code needs to be run with both training and evaluation metrics stored in the output folder**\
 **You can only analyze 4 models at a time**\

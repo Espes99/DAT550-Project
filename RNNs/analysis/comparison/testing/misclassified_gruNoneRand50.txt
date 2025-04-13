@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for gruNoneRand50
+
+{
+  "true_label": "physics",
+  "predicted_label": "math",
+  "confidence": 0.15093572437763214
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "stat",
+  "confidence": 0.10306305438280106
+}
+
+{
+  "true_label": "astro-ph",
+  "predicted_label": "stat",
+  "confidence": 0.10306303203105927
+}
+
+{
+  "true_label": "math",
+  "predicted_label": "stat",
+  "confidence": 0.10306302458047867
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "stat",
+  "confidence": 0.10306302458047867
+}
+
