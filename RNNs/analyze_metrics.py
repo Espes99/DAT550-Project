@@ -383,6 +383,39 @@ def generate_summary_csv(test_metrics_list, labels, save_path):
     df.to_csv(save_path, index=False)
     print(f"[✓] Exported summary CSV to: {save_path}")
 
+def plot_test_metric_summary(test_metrics_list, labels, save_path):
+    metrics = ["accuracy", "precision", "recall", "f1", "top3_accuracy"]
+    df = pd.DataFrame([
+        {"Model": label, "Metric": metric.title(), "Value": m.get(metric, 0)}
+        for label, m in zip(labels, test_metrics_list)
+        for metric in metrics
+    ])
+
+    plt.figure(figsize=(12, 6))
+    sns.barplot(data=df, x="Model", y="Value", hue="Metric", palette="pastel")
+    plt.title("Test Metric Comparison Across Models")
+    plt.ylim(0, 1)
+    plt.ylabel("Score")
+    plt.xticks(rotation=45, ha="right")
+    plt.legend(loc="lower right")
+    plt.tight_layout()
+    plt.savefig(save_path)
+    plt.close()
+
+def plot_test_metric_summary_heatmap(test_metrics_list, labels, save_path):
+    metrics = ["accuracy", "precision", "recall", "f1", "top3_accuracy"]
+    data = [[m.get(metric, 0) for metric in metrics] for m in test_metrics_list]
+    df = pd.DataFrame(data, index=labels, columns=[m.title() for m in metrics])
+
+    plt.figure(figsize=(10, len(labels) * 0.6 + 2))
+    sns.heatmap(df, annot=True, cmap="YlGnBu", fmt=".2f", vmin=0, vmax=1)
+    plt.title("Test Metrics Heatmap")
+    plt.ylabel("Model")
+    plt.xlabel("Metric")
+    plt.tight_layout()
+    plt.savefig(save_path)
+    plt.close()
+
 def main(run_dirs, mode="both"):
     save_dir = prepare_unique_output_path(os.path.join("analysis", "comparison", "testing"))
     metrics_dfs = []
@@ -463,6 +496,8 @@ def main(run_dirs, mode="both"):
         )
 
     if mode in ["test", "both"]:
+        plot_test_metric_summary_heatmap(test_metrics_list, labels, os.path.join(save_dir, "test_metric_comparison_heatmap.png"))
+        plot_test_metric_summary(test_metrics_list, labels, os.path.join(save_dir, "test_metric_comparison.png"))
         plot_confidence_histogram_grid(conf_hist["data"], conf_hist["label"], os.path.join(save_dir, "confidence_comparative_histogram.png"))
         plot_calibration_curve_grid(calibration_curve_list["data"], calibration_curve_list["label"], os.path.join(save_dir, "calibration_comparative_curve.png"))
         plot_confusion_matrix_grid(conf_matrix_list["data"], conf_matrix_list["class_label"], conf_matrix_list["label"], os.path.join(save_dir, "confusion_matrix_comparative.png"))
