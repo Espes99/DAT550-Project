@@ -40,14 +40,16 @@ python -m pytest -v test/test_pipeline.py
 ```
 
 ## Training a model
-To train a model configure a training config and run the following command:
+To train a model, configure a training config and run the following command:
 ```bash
-python run_training.py --config configs/training/*.yaml # This command can be ran as a standalone without flags, that will default to the config "rnn_test_flight.yaml"
+python run_training.py --config configs/training/*.yaml # *.yaml is not a valid file to run, its to indicate that you can run any yaml file in this directory
+# This command can be ran as a standalone without flags, that will default to the config "rnn_test_flight.yaml"
 ```
 
 The available flags are:
 ```bash
---config "Config directory"
+--config "Path to config file"
+--config_dir "Path to directory for a set of config files to load multiple configs"
 ```
 
 ## Evaluating a model
@@ -57,8 +59,10 @@ python evaluate_rnn.py --config configs/testing/eval_test.yaml
 ```
 The available flags are:
 ```bash
---config "config directory"
+--config "Path to config file"
+--config_dir "Path to directory for a set of config files to load multiple configs"
 ```
+
 ## Analysis procedure
 ### General analysis
 Run the following command with a list of model directories:
@@ -68,14 +72,16 @@ python analyze_metrics.py --runs outputs/training/testGruBiCustomGloveFSched out
 The available flags are:
 ```bash
 --runs "list all model directories with a seperating space"
---mode options are ["train", "test", "both"]
+--mode options are ["train", "test", "both"] # recommended to run "both" for best stability
 ```
 Commands used in this project:
 ```bash
+# Config set 1
 python analyze_metrics.py --runs outputs/training/gruBiMLPFast300/gruBiMLPFast300 outputs/training/gruBiMLPFast300LR01/gruBiMLPFast300LR01 outputs/training/gruNoneGlove50/gruNoneGlove50 outputs/training/gruNoneRand50/gruNoneRand50 --mode both
 
 python analyze_metrics.py --runs outputs/training/lstmBiCustomGlove50_2L/lstmBiCustomGlove50_2L outputs/training/lstmBiCustomGlove50Drop1/lstmBiCustomGlove50Drop1 --mode both
 
+# Config set 2
 python analyze_metrics.py --runs outputs/training/lstmBiDotGlove100Train/lstmBiDotGlove100Train outputs/training/lstmBiMHAFast300_2L/lstmBiMHAFast300_2L outputs/training/lstmBiNoneGlove50/lstmBiNoneGlove50 outputs/training/lstmNoneGlove50/lstmNoneGlove50 --mode both
 
 python analyze_metrics.py --runs outputs/training/lstmNoneGlove50Drop1/lstmNoneGlove50Drop1 outputs/training/lstmNoneGlove50LR01/lstmNoneGlove50LR01 --mode both
