@@ -24,6 +24,12 @@ RNNs/
 └── README.md
 ```
 
+## General information
+This model is configured to try running the training and evaluation scripts on the "CUDA", "MPS" (Apple silicon macs), "CPU" in this order defaulting to cpu processing.
+If you want to run any processing on cuda cores you need install the cuda version of pytorch. Because we use "torchtext" in this project we are limited to the version of torchtext that is compatible with torch, at the time of development the newest version of torchtext is 0.18.0, and the latest compatible torch version with cuda core support is torch 2.3.0+cu121.
+
+Its recommended to first install torchtext, uninstall torch, and then install a version of torch with cuda. This is done because torchtext will demand installing its own version of torch, however this version will not support cuda.
+
 ## Execution
 **All files contained in the RNNs folder need to be ran with RNNs as the origin folder**
 
