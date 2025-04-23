@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for baseline
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9980921149253845
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.997796893119812
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9974038004875183
+}
+
+{
+  "true_label": "hep-th",
+  "predicted_label": "math",
+  "confidence": 0.9948402047157288
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9944174289703369
+}
+

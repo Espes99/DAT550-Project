@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for baselineHD256
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9998821020126343
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9998071789741516
+}
+
+{
+  "true_label": "hep-th",
+  "predicted_label": "math",
+  "confidence": 0.9996875524520874
+}
+
+{
+  "true_label": "cs",
+  "predicted_label": "quant-ph",
+  "confidence": 0.999556839466095
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9994814991950989
+}
+

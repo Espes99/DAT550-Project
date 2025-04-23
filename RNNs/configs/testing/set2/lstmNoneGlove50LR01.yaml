@@ -1,0 +1,28 @@
+test_flight: false
+
+preprocess:
+  max_len: 350
+
+training:
+  lr: 0.01
+
+batch_size: 8
+
+model:
+  rnn_type: "lstm"
+  bidirectional: false
+  attention_layer: "none"
+  return_attn_weights: true
+  num_layers: 1
+  dropout: 0.1
+  hidden_dim: 16
+
+embedding:
+  embedding_dim: 50
+  embedding_type: "glove"
+  freeze: true
+
+model_dir: outputs/training/lstmNoneGlove50LR01/lstmNoneGlove50LR01
+log_dir: outputs/training/lstmNoneGlove50LR01/lstmNoneGlove50LR01
+
+dir_extention: lstmNoneGlove50LR01 # testGruBiCustomGloveFSched testLstmNonbiCustomDotGloveFSched testLstmNonbiNoneGloveFSched

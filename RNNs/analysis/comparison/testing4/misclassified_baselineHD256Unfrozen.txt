@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for baselineHD256Unfrozen
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9990789890289307
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "cond-mat",
+  "confidence": 0.9986609220504761
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9985632300376892
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9976536631584167
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9976484179496765
+}
+

@@ -1,0 +1,5 @@
+Model,Accuracy,Macro-F1,Precision,Recall,Top-3 Accuracy,Avg Attention Entropy,Loss,Test Type
+lstmBiCustomGlove50_2L,0.8079,0.8061,0.8078,0.8077,0.9759,4.4967,N/A,lstmBiCustomGlove50_2L
+lstmBiCustomGlove50Drop1,0.7732,0.7703,0.7721,0.7732,0.9631,4.2335,N/A,lstmBiCustomGlove50Drop1
+lstmNoneGlove50Drop1,0.0973,0.0177,0.0097,0.1,0.2967,N/A,N/A,lstmNoneGlove50Drop1
+lstmNoneGlove50LR01,0.0973,0.0177,0.0097,0.1,0.2989,N/A,N/A,lstmNoneGlove50LR01

@@ -1,0 +1,34 @@
+batch_size: 64
+embedding:
+  embedding_dim: 50
+  embedding_type: glove
+  freeze: true
+evaluate_on_test: false
+log_dir: logs/training/lstmBiCustomGlove50Drop1
+model:
+  attention_layer: custom
+  bidirectional: true
+  dropout: 0.1
+  hidden_dim: 128
+  num_layers: 1
+  return_attn_weights: true
+  rnn_type: lstm
+output_dir: outputs/training/lstmBiCustomGlove50Drop1
+preprocess:
+  max_len: 350
+run_type: training
+test_flight: false
+test_type: lstmBiCustomGlove50Drop1
+training:
+  batch_size: 64
+  early_stopping: true
+  early_stopping_patience: 10
+  epochs: 10
+  lr: 0.001
+  scheduler:
+    factor: 0.5
+    mode: max
+    name: ReduceLROnPlateau
+    patience: 2
+    verbose: true
+use_tensorboard: false
