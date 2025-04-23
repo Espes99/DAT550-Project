@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for lstmBiCustomGlove50_2L
+
+{
+  "true_label": "cs",
+  "predicted_label": "quant-ph",
+  "confidence": 0.9994107484817505
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "quant-ph",
+  "confidence": 0.9988601207733154
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9984990358352661
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "cond-mat",
+  "confidence": 0.9982505440711975
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "quant-ph",
+  "confidence": 0.9978237152099609
+}
+

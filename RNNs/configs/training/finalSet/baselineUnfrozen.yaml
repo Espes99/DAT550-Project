@@ -1,0 +1,34 @@
+batch_size: 64
+embedding:
+  embedding_dim: 300
+  embedding_type: fasttext
+  freeze: false
+evaluate_on_test: false
+log_dir: logs/training/baselineUnfrozen
+model:
+  attention_layer: custom_mlp
+  bidirectional: true
+  dropout: 0.3
+  hidden_dim: 128
+  num_layers: 2
+  return_attn_weights: true
+  rnn_type: gru
+output_dir: outputs/training/baselineUnfrozen
+preprocess:
+  max_len: 350
+run_type: training
+test_flight: false
+test_type: baselineUnfrozen
+training:
+  batch_size: 64
+  early_stopping: true
+  early_stopping_patience: 10
+  epochs: 10
+  lr: 0.001
+  scheduler:
+    factor: 0.5
+    mode: max
+    name: ReduceLROnPlateau
+    patience: 2
+    verbose: true
+use_tensorboard: false

@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for lstmBiMHAFast300_2L
+
+{
+  "true_label": "quant-ph",
+  "predicted_label": "hep-th",
+  "confidence": 0.9995263814926147
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "cond-mat",
+  "confidence": 0.9991361498832703
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9990648627281189
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9990501999855042
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "hep-th",
+  "confidence": 0.9989935755729675
+}
+

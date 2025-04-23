@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for lstmNoneGlove50Drop1
+
+{
+  "true_label": "physics",
+  "predicted_label": "hep-ph",
+  "confidence": 0.5802136063575745
+}
+
+{
+  "true_label": "math",
+  "predicted_label": "stat",
+  "confidence": 0.10130143165588379
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "stat",
+  "confidence": 0.10130143165588379
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "stat",
+  "confidence": 0.10130143165588379
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "stat",
+  "confidence": 0.10130143165588379
+}
+

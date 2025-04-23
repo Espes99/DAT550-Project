@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for baselineDrop02
+
+{
+  "true_label": "physics",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9986400008201599
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9976334571838379
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9968299269676208
+}
+
+{
+  "true_label": "cs",
+  "predicted_label": "quant-ph",
+  "confidence": 0.9965940117835999
+}
+
+{
+  "true_label": "hep-th",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9959356784820557
+}
+

@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for gruNoneGlove50
+
+{
+  "true_label": "hep-th",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9975767731666565
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9974076151847839
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.996577799320221
+}
+
+{
+  "true_label": "hep-th",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9954341053962708
+}
+
+{
+  "true_label": "hep-th",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9951367974281311
+}
+

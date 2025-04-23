@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for lstmBiDotGlove100Train
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9976134300231934
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9972296357154846
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9958894848823547
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9949114918708801
+}
+
+{
+  "true_label": "stat",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9939596652984619
+}
+

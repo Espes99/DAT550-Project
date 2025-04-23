@@ -49,7 +49,7 @@ python run_training.py --config configs/training/*.yaml # *.yaml is not a valid 
 The available flags are:
 ```bash
 --config "Path to config file"
---config_dir "Path to directory for a set of config files to load multiple configs"
+--config_dir "Path to directory for a set of config files to load multiple configs, example: config/training/set1"
 ```
 
 ## Evaluating a model
@@ -76,6 +76,10 @@ The available flags are:
 ```
 Commands used in this project:
 ```bash
+# Final small test run just to test 256 efficiency with unfrozen (train/eval commands)
+python run_training.py --config configs/training/baselineHD256Unfrozen.yaml
+python evaluate_rnn.py --config configs/testing/baselineHD256Unfrozen.yaml
+
 # Config set 1
 python analyze_metrics.py --runs outputs/training/gruBiMLPFast300/gruBiMLPFast300 outputs/training/gruBiMLPFast300LR01/gruBiMLPFast300LR01 outputs/training/gruNoneGlove50/gruNoneGlove50 outputs/training/gruNoneRand50/gruNoneRand50 --mode both
 
@@ -85,6 +89,15 @@ python analyze_metrics.py --runs outputs/training/lstmBiCustomGlove50_2L/lstmBiC
 python analyze_metrics.py --runs outputs/training/lstmBiDotGlove100Train/lstmBiDotGlove100Train outputs/training/lstmBiMHAFast300_2L/lstmBiMHAFast300_2L outputs/training/lstmBiNoneGlove50/lstmBiNoneGlove50 outputs/training/lstmNoneGlove50/lstmNoneGlove50 --mode both
 
 python analyze_metrics.py --runs outputs/training/lstmNoneGlove50Drop1/lstmNoneGlove50Drop1 outputs/training/lstmNoneGlove50LR01/lstmNoneGlove50LR01 --mode both
+
+# Combination of the second in set 1 and set 2
+python analyze_metrics.py --runs outputs/training/lstmBiCustomGlove50_2L/lstmBiCustomGlove50_2L outputs/training/lstmBiCustomGlove50Drop1/lstmBiCustomGlove50Drop1 outputs/training/lstmNoneGlove50Drop1/lstmNoneGlove50Drop1 outputs/training/lstmNoneGlove50LR01/lstmNoneGlove50LR01 --mode both
+
+# Final config set
+python analyze_metrics.py --runs outputs/training/baseline/baseline outputs/training/baselineDrop02/baselineDrop02 outputs/training/baselineHD256/baselineHD256 outputs/training/baselineUnfrozen/baselineUnfrozen --mode both
+
+# Small final test
+python analyze_metrics.py --runs outputs/training/baseline/baseline outputs/training/baselineHD256/baselineHD256 outputs/training/baselineUnfrozen/baselineUnfrozen outputs/training/baselineHD256Unfrozen/baselineHD256Unfrozen --mode both
 ```
 
 ### Attention evolution analysis

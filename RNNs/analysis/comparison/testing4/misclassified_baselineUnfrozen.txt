@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for baselineUnfrozen
+
+{
+  "true_label": "physics",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9973100423812866
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "astro-ph",
+  "confidence": 0.9971912503242493
+}
+
+{
+  "true_label": "cs",
+  "predicted_label": "quant-ph",
+  "confidence": 0.9967944025993347
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "astro-ph",
+  "confidence": 0.996575653553009
+}
+
+{
+  "true_label": "math",
+  "predicted_label": "quant-ph",
+  "confidence": 0.9955152869224548
+}
+

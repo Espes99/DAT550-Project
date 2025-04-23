@@ -1,0 +1,5 @@
+Model,Accuracy,Macro-F1,Precision,Recall,Top-3 Accuracy,Avg Attention Entropy,Loss,Test Type
+baseline,0.7694,0.768,0.7814,0.7697,0.9653,4.6304,N/A,baseline
+baselineDrop02,0.7954,0.7959,0.7992,0.7952,0.9699,4.601,N/A,baselineDrop02
+baselineHD256,0.8278,0.8256,0.827,0.8274,0.9801,3.8709,N/A,baselineHD256
+baselineUnfrozen,0.8201,0.8207,0.8276,0.8203,0.9798,4.6538,N/A,baselineUnfrozen
