@@ -1,14 +1,15 @@
 ### Default model
-max-iterations set to 100 (usually stops before this)
+max-iterations set to 100
 ```python
-self.model = MLPClassifier(  
-    hidden_layer_sizes=self.hidden_layer_sizes,  
-    max_iter=self.max_iter,  
-    early_stopping=False,  
-    n_iter_no_change=10,  
-    tol=0.0001,  
-    random_state=42,  
-    verbose=True  
+model = MLPClassifier(
+    hidden_layer_sizes=self.hidden_layer_sizes,
+    max_iter=self.max_iter,
+    early_stopping=False,
+    n_iter_no_change=10,
+    tol=0.0001,
+    random_state=42,
+    verbose=True,
+    solver="adam"
 )
 ```
 
@@ -28,22 +29,22 @@ hidden_layer_sizes = [(50,), (100,), (200,), (50, 25), (100, 50), (200, 100), (1
 ```
 #### TFIDF
 
-| Hidden Layer Structure | Accuracy  |
-| ---------------------- | --------- |
-| (50,)                  | 0.78075   |
-| (100,)                 | 0.7859375 |
-| (200,)                 | 0.7936875 |
-| (50, 25)               | 0.7751875 |
-| (100, 50)              | 0.782625  |
-| (200, 100)             | 0.793125  |
-| (100, 50, 25)          | 0.7825625 |
+| Hidden Layer Structure | Accuracy |
+| ---------------------- |----------|
+| (50,)                  | 0.775703 |
+| (100,)                 | 0.777734 |
+| (200,)                 | 0.780781 |
+| (50, 25)               | 0.765547 |
+| (100, 50)              | 0.768281 |
+| (200, 100)             | 0.780938 |
+| (100, 50, 25)          | 0.77219  |
 #### Count
 | Hidden Layer Structure | Accuracy |
-| --- | --- |
-| (50,) | 0.7858125 |
-| (100,) | 0.7940625 |
-| (200,) | 0.8 |
-| (50, 25) | 0.7878125 |
-| (100, 50) | 0.801625 |
-| (200, 100) | 0.8086875 |
-| (100, 50, 25) | 0.7978125 |
+| --- |----------|
+| (50,) | 0.783438 |
+| (100,) | 0.79219  |
+| (200,) | 0.798359 |
+| (50, 25) | 0.778516 |
+| (100, 50) | 0.797969 |
+| (200, 100) | 0.801719 |
+| (100, 50, 25) | 0.79586  |
