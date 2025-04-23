@@ -71,7 +71,7 @@ python analyze_metrics.py --runs outputs/training/testGruBiCustomGloveFSched out
 ```
 The available flags are:
 ```bash
---runs "list all model directories with a seperating space"
+--runs "list all model directories with a separating space"
 --mode options are ["train", "test", "both"] # recommended to run "both" for best stability
 ```
 Commands used in this project:
