@@ -105,6 +105,10 @@ python analyze_metrics.py --runs outputs/training/baseline/baseline outputs/trai
 
 # Small final test
 python analyze_metrics.py --runs outputs/training/baseline/baseline outputs/training/baselineHD256/baselineHD256 outputs/training/baselineUnfrozen/baselineUnfrozen outputs/training/baselineHD256Unfrozen/baselineHD256Unfrozen --mode both
+
+#Final graph setup for High avg low performing models
+python analyze_metrics.py --runs outputs/training/gruBiMLPFast300/gruBiMLPFast300 outputs/training/lstmBiNoneGlove50/lstmBiNoneGlove50 outputs/training/lstmNoneGlove50/lstmNoneGlove50 outputs/training/gruNoneGlove50/gruNoneGlove50 --mode both
+
 ```
 
 ### Attention evolution analysis
