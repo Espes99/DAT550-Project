@@ -72,6 +72,8 @@ The available flags are:
 
 ## Analysis procedure
 ### General analysis
+**Small note this code needs to be run with both training and evaluation metrics stored in the output folder**\
+**You can only analyze 4 models at a time**\
 Run the following command with a list of model directories:
 ```bash
 python analyze_metrics.py --runs outputs/training/testGruBiCustomGloveFSched outputs/training/testLstmNonbiCustomDotGloveFSched outputs/training/testLstmNonbiNoneGloveFSched --mode both
@@ -112,8 +114,6 @@ python analyze_metrics.py --runs outputs/training/gruBiMLPFast300/gruBiMLPFast30
 ```
 
 ### Attention evolution analysis
-**Small note this code needs to be run with both training and evaluation metrics stored in the output folder**\
-**You can only analyze 4 models at a time**\
 Run the following command:
 ```bash
 python plot_animated_attention.py --trace_dir outputs/training/testGruBiCustomGloveFSched/attention_trace --out attention_evolution.gif
