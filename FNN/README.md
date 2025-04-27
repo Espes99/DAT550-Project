@@ -11,8 +11,8 @@ This project implements a text classification system for arXiv paper abstracts u
   - nltk
   - matplotlib
 
+It is recommended to initilize and activate a virtual environment.
 To install dependencies:
-In root folder.
 ```bash
 pip install -r requirements.txt
 ```
