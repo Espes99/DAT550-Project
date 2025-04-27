@@ -1,0 +1,5 @@
+Model,Accuracy,Macro-F1,Precision,Recall,Top-3 Accuracy,Avg Attention Entropy,Loss,Test Type
+gruBiMLPFast300,0.7952,0.7958,0.8038,0.7952,0.9727,3.5399,N/A,gruBiMLPFast300
+lstmBiNoneGlove50,0.7663,0.7651,0.7718,0.7661,0.9617,N/A,N/A,lstmBiNoneGlove50
+lstmNoneGlove50,0.0973,0.0177,0.0097,0.1,0.2956,N/A,N/A,lstmNoneGlove50
+gruNoneGlove50,0.7775,0.7769,0.7798,0.7774,0.9644,N/A,N/A,gruNoneGlove50

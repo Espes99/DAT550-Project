@@ -1,0 +1,32 @@
+Top 5 Most Confident Misclassifications for lstmBiNoneGlove50
+
+{
+  "true_label": "hep-th",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9943082928657532
+}
+
+{
+  "true_label": "astro-ph",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9928033947944641
+}
+
+{
+  "true_label": "astro-ph",
+  "predicted_label": "hep-ph",
+  "confidence": 0.9925097227096558
+}
+
+{
+  "true_label": "hep-ph",
+  "predicted_label": "quant-ph",
+  "confidence": 0.9921541810035706
+}
+
+{
+  "true_label": "physics",
+  "predicted_label": "quant-ph",
+  "confidence": 0.9919658899307251
+}
+
