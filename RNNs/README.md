@@ -37,6 +37,8 @@ If you want to run any processing on cuda cores you need install the cuda versio
 
 It's recommended to first install torchtext, uninstall torch, and then install a version of torch with cuda. This is done because torchtext will demand installing its own version of torch, however this version will not support cuda.
 
+This is a very resource intensive task and its recommended to run on a GPU, this model was trained on a RTX2070 series card and took between 10 and 40 minutes per model for 10 epochs
+
 ## Execution
 **All files contained in the RNNs folder need to be ran with RNNs as the origin folder**
 
