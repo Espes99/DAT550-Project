@@ -23,6 +23,6 @@ embedding:
   freeze: true
 
 model_dir: outputs/training/baselineHD256TimeTest/baselineHD256TimeTest
-log_dir: outputs/training/baselineHD256TimeTest/baselbaselineHD256TimeTestineHD256
+log_dir: outputs/training/baselineHD256TimeTest/baselineHD256TimeTest
 
 dir_extention: baselineHD256TimeTest # testGruBiCustomGloveFSched testLstmNonbiCustomDotGloveFSched testLstmNonbiNoneGloveFSched

@@ -5,6 +5,7 @@ import constant as const
 
 nltk.download('stopwords')
 nltk.download('punkt_tab')
+nltk.download('wordnet')
 with_lem = True
 accuracy_results = []
 hidden_layer_sizes = [(50,), (100,), (200,), (50, 25), (100, 50), (200, 100), (100, 50, 25)]
