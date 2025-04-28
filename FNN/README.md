@@ -17,11 +17,6 @@ To install dependencies:
 pip install -r requirements.txt
 ```
 
-Download required NLTK resources:
-```bash
-python -c "import nltk; nltk.download('stopwords'); nltk.download('punkt'); nltk.download('wordnet')"
-```
-
 ## Project Structure for FNN
 - `constant.py`: Contains data paths and constants
 - `preprocess_util.py`: Text preprocessing and data loading utilities
